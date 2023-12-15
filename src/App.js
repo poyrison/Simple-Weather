@@ -39,6 +39,7 @@ const AppWrap = styled.div`
   }
 
   #searchBtn {
+    border: 0;
     background: #eee;
     border-radius: 40px;
     display: flex;
@@ -56,10 +57,10 @@ const AppWrap = styled.div`
     background: #fff;
   }
 
-  #inputBox {
-    display: flex;
-    justify-content: space-around;
-  }
+  // #inputBox {
+  //   display: flex;
+  //   justify-content: space-around;
+  // }
 `;
 
 const ResultWrap = styled.div`
