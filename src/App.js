@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import moment from "moment";
+import "moment/locale/ko";
 
 const AppWrap = styled.div`
   width: 100vw;
@@ -75,6 +76,10 @@ const ResultWrap = styled.div`
     font-size: 2rem;
   }
 
+  #countryTimezone {
+    font-size: 18px;
+  }
+
   .temperatureData {
     text-align: center;
     font-size: 4rem;
@@ -83,6 +88,14 @@ const ResultWrap = styled.div`
   .skyData {
     text-align: center;
   }
+
+  #tempMaxMin {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 20px;
+    font-weight: 400;
+  }
 `;
 
 function App() {
@@ -90,6 +103,8 @@ function App() {
   const [location, setLocation] = useState("");
   const [result, setResult] = useState({});
   const [temp, setTemp] = useState(0);
+  const [maxTemp, setMaxTemp] = useState(0);
+  const [minTemp, setMinTemp] = useState(0);
   const [num, setNum] = useState(0);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
@@ -97,6 +112,14 @@ function App() {
   const convertToF = (celsius) => {
     let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
     setTemp(fahrenheit);
+  };
+  const convertToF_Max = (celsius) => {
+    let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
+    setMaxTemp(fahrenheit);
+  };
+  const convertToF_Min = (celsius) => {
+    let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
+    setMinTemp(fahrenheit);
   };
 
   const weatherIcon = [
@@ -120,6 +143,8 @@ function App() {
           console.log(response.data);
           setResult(response);
           convertToF(response.data.main.temp);
+          convertToF_Max(response.data.main.temp_max);
+          convertToF_Min(response.data.main.temp_min);
           setNum(weatherIconHandle(response.data.weather[0].main));
         });
       } catch (err) {
@@ -133,6 +158,8 @@ function App() {
         console.log(response.data);
         setResult(response);
         convertToF(response.data.main.temp);
+        convertToF_Max(response.data.main.temp_max);
+        convertToF_Min(response.data.main.temp_min);
         setNum(weatherIconHandle(response.data.weather[0].main));
       });
     } catch (err) {
@@ -143,16 +170,12 @@ function App() {
   // 지역의 시간대 정보
   const getTimeInTargetTime = (timezone) => {
     const targetTimezone = timezone;
+    moment.locale("ko");
     const utcTime = moment().utc();
     const targetTime = utcTime.add(targetTimezone, "seconds");
 
     return targetTime.format("M.D(ddd) HH:mm");
   };
-
-  // window.addEventListener("DOMContentLoaded", (e) => {
-  //   const searchWeatherFocus = document.getElementById("searchWeather");
-  //   searchWeatherFocus.focus();
-  // });
 
   return (
     <AppWrap>
@@ -167,6 +190,7 @@ function App() {
             }}
             type="text"
             onKeyDown={searchWeather}
+            autoFocus
           />
           <button id="searchBtn" type="button" onClick={searchWeatherMouse}>
             <img
@@ -180,9 +204,12 @@ function App() {
             <div>
               <div className="skyData">
                 <div>
-                  <div className="cityData">{`${result.data.name}, ${
-                    result.data.sys.country
-                  } - ${getTimeInTargetTime(result.data.timezone)}`}</div>
+                  <div className="cityData">
+                    <div id="countryName">{`${result.data.name}, ${result.data.sys.country}`}</div>
+                    <div id="countryTimezone">
+                      {getTimeInTargetTime(result.data.timezone)}
+                    </div>
+                  </div>
                 </div>
                 <img
                   id="myImage"
@@ -195,7 +222,13 @@ function App() {
                   title={`${result.data.weather[0].main}`}
                 />
                 <div>
-                  <div className="temperatureData">{`${temp}˚`}</div>
+                  <div className="temperatureData">
+                    {`${temp}˚`}
+                    <div id="tempMaxMin">
+                      <div>{`최고:${maxTemp}º`}</div>
+                      <div>{`최저:${minTemp}º`}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
