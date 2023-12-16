@@ -58,11 +58,6 @@ const AppWrap = styled.div`
   #searchBtn:active {
     background: #fff;
   }
-
-  // #inputBox {
-  //   display: flex;
-  //   justify-content: space-around;
-  // }
 `;
 
 const ResultWrap = styled.div`
@@ -74,6 +69,16 @@ const ResultWrap = styled.div`
   .cityData {
     text-align: center;
     font-size: 2rem;
+  }
+
+  .cityDataTitleBox {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .cityDataTitleBox img {
   }
 
   #countryTimezone {
@@ -95,6 +100,22 @@ const ResultWrap = styled.div`
     justify-content: space-evenly;
     font-size: 20px;
     font-weight: 400;
+  }
+  .windDegSpeed,
+  .humidity {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 400;
+    align-items: center;
+  }
+  .windDegSpeed img,
+  .humidity img {
+    margin: 0 0 10px 0;
+    height: 40px;
+    width: 40px;
   }
 `;
 
@@ -205,14 +226,22 @@ function App() {
               <div className="skyData">
                 <div>
                   <div className="cityData">
-                    <div id="countryName">{`${result.data.name}, ${result.data.sys.country}`}</div>
+                    <div className="cityDataTitleBox">
+                      <img
+                        src={process.env.PUBLIC_URL + "/image/Location.png"}
+                        alt="location"
+                        title="location"
+                        height={20}
+                        width={20}
+                      />
+                      <div id="countryName">{`${result.data.name}, ${result.data.sys.country}`}</div>
+                    </div>
                     <div id="countryTimezone">
                       {getTimeInTargetTime(result.data.timezone)}
                     </div>
                   </div>
                 </div>
                 <img
-                  id="myImage"
                   src={
                     process.env.PUBLIC_URL + `/image/${weatherIcon[num]}.png`
                   }
@@ -227,6 +256,22 @@ function App() {
                     <div id="tempMaxMin">
                       <div>{`최고:${maxTemp}º`}</div>
                       <div>{`최저:${minTemp}º`}</div>
+                    </div>
+                    <div className="windDegSpeed">
+                      <img
+                        src={process.env.PUBLIC_URL + `/image/Wind.png`}
+                        title="wind"
+                        alt="wind"
+                      />
+                      <div>{`풍속: ${result.data.wind.speed}m/s`}</div>
+                    </div>
+                    <div className="humidity">
+                      <img
+                        src={process.env.PUBLIC_URL + `/image/Humidity.png`}
+                        title="humidity"
+                        alt="humidity"
+                      />
+                      <div>{`습도: ${result.data.main.humidity}%`}</div>
                     </div>
                   </div>
                 </div>
