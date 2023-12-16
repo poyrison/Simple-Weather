@@ -130,6 +130,7 @@ function App() {
   const searchWeatherMouse = async (e) => {
     try {
       await axios.get(url).then((response) => {
+        console.log(response.data);
         setResult(response);
         convertToF(response.data.main.temp);
         setNum(weatherIconHandle(response.data.weather[0].main));
@@ -145,7 +146,7 @@ function App() {
     const utcTime = moment().utc();
     const targetTime = utcTime.add(targetTimezone, "seconds");
 
-    return targetTime.format("M.D HH:mm");
+    return targetTime.format("M.D(ddd) HH:mm");
   };
 
   // window.addEventListener("DOMContentLoaded", (e) => {
@@ -181,7 +182,7 @@ function App() {
                 <div>
                   <div className="cityData">{`${result.data.name}, ${
                     result.data.sys.country
-                  }(${getTimeInTargetTime(result.data.timezone)})`}</div>
+                  } - ${getTimeInTargetTime(result.data.timezone)}`}</div>
                 </div>
                 <img
                   id="myImage"
