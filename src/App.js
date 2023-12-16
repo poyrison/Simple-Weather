@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import moment from "moment";
 
 const AppWrap = styled.div`
   width: 100vw;
@@ -65,7 +66,7 @@ const AppWrap = styled.div`
 
 const ResultWrap = styled.div`
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
   padding: 10px;
   color: #eee;
 
@@ -109,8 +110,6 @@ function App() {
   ];
   const weatherIconHandle = (e) => {
     const weatherIconIndex = weatherIcon.indexOf(e);
-    console.log(weatherIconIndex);
-    console.log(weatherIcon[num]);
     return weatherIconIndex;
   };
 
@@ -118,7 +117,7 @@ function App() {
     if (e.key === "Enter") {
       try {
         await axios.get(url).then((response) => {
-          console.log(response);
+          console.log(response.data);
           setResult(response);
           convertToF(response.data.main.temp);
           setNum(weatherIconHandle(response.data.weather[0].main));
@@ -131,7 +130,6 @@ function App() {
   const searchWeatherMouse = async (e) => {
     try {
       await axios.get(url).then((response) => {
-        console.log(response);
         setResult(response);
         convertToF(response.data.main.temp);
         setNum(weatherIconHandle(response.data.weather[0].main));
@@ -141,11 +139,26 @@ function App() {
     }
   };
 
+  // 지역의 시간대 정보
+  const getTimeInTargetTime = (timezone) => {
+    const targetTimezone = timezone;
+    const utcTime = moment().utc();
+    const targetTime = utcTime.add(targetTimezone, "seconds");
+
+    return targetTime.format("M.D HH:mm");
+  };
+
+  // window.addEventListener("DOMContentLoaded", (e) => {
+  //   const searchWeatherFocus = document.getElementById("searchWeather");
+  //   searchWeatherFocus.focus();
+  // });
+
   return (
     <AppWrap>
       <div className="appContentWrap">
         <div id="inputBox">
           <input
+            id="searchWeather"
             placeholder="Search"
             value={location}
             onChange={(e) => {
@@ -165,6 +178,11 @@ function App() {
           <ResultWrap>
             <div>
               <div className="skyData">
+                <div>
+                  <div className="cityData">{`${result.data.name}, ${
+                    result.data.sys.country
+                  }(${getTimeInTargetTime(result.data.timezone)})`}</div>
+                </div>
                 <img
                   id="myImage"
                   src={
@@ -176,10 +194,7 @@ function App() {
                   title={`${result.data.weather[0].main}`}
                 />
                 <div>
-                  <div className="temperatureData">{`${temp}℃`}</div>
-                </div>
-                <div>
-                  <div className="cityData">{`${result.data.name}, ${result.data.sys.country}`}</div>
+                  <div className="temperatureData">{`${temp}˚`}</div>
                 </div>
               </div>
             </div>
