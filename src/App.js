@@ -5,15 +5,13 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const AppWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
   * {
     box-sizing: border-box;
   }
 
   .appContentWrap {
     background: linear-gradient(180deg, #130754 0%, #3b2f80 100%);
-
+    box-shadow: 7px 7px 5px #898aa6;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -58,6 +56,42 @@ const AppWrap = styled.div`
   #searchBtn:active {
     background: #fff;
   }
+  @media (min-width: 200px) and (max-width: 767px) {
+    .appContentWrap {
+      width: 80vw;
+    }
+    #inputBox {
+      gap: 10px;
+    }
+    #inputBox input {
+      font-size: 14px;
+      font-weight: 400;
+      height: 40px;
+      padding-left: 20px;
+    }
+    #searchBtn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    .appContentWrap {
+      width: 80vw;
+    }
+    #inputBox {
+      gap: 10px;
+    }
+    #inputBox input {
+      font-size: 24px;
+      font-weight: 400;
+      height: 50px;
+      padding-left: 50px;
+    }
+    #searchBtn {
+      width: 50px;
+      height: 50px;
+    }
+  }
 `;
 
 const ResultWrap = styled.div`
@@ -79,6 +113,8 @@ const ResultWrap = styled.div`
   }
 
   .cityDataTitleBox img {
+    height: 20px;
+    width: 20px;
   }
 
   #countryTimezone {
@@ -88,6 +124,11 @@ const ResultWrap = styled.div`
   .temperatureData {
     text-align: center;
     font-size: 4rem;
+  }
+
+  #weatherImage {
+    width: 200px;
+    height: 200px;
   }
 
   .skyData {
@@ -117,6 +158,98 @@ const ResultWrap = styled.div`
     height: 40px;
     width: 40px;
   }
+  .windAndHumidity {
+    display: flex;
+    justify-content: space-around;
+  }
+  @media (min-width: 200px) and (max-width: 767px) {
+    .cityData {
+      font-size: 30px;
+    }
+
+    .cityDataTitleBox {
+      gap: 3px;
+    }
+
+    .cityDataTitleBox img {
+      height: 22px;
+      width: 22px;
+    }
+
+    #countryTimezone {
+      font-size: 14px;
+    }
+
+    #weatherImage {
+      width: 150px;
+      height: 150px;
+    }
+
+    .temperatureData {
+      font-size: 2rem;
+    }
+
+    #tempMaxMin {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .windDegSpeed,
+    .humidity {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .windDegSpeed img,
+    .humidity img {
+      margin: 0 0 10px 0;
+      height: 25px;
+      width: 25px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    .cityData {
+      font-size: 40px;
+    }
+
+    .cityDataTitleBox {
+      gap: 5px;
+    }
+
+    .cityDataTitleBox img {
+      height: 28px;
+      width: 28px;
+    }
+
+    #countryTimezone {
+      font-size: 18px;
+    }
+
+    #weatherImage {
+      width: 220px;
+      height: 220px;
+    }
+
+    .temperatureData {
+      font-size: 3.5rem;
+    }
+
+    #tempMaxMin {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: 400;
+    }
+    .windDegSpeed,
+    .humidity {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    .windDegSpeed img,
+    .humidity img {
+      margin: 0 0 10px 0;
+      height: 35px;
+      width: 35px;
+    }
+  }
 `;
 
 function App() {
@@ -126,6 +259,7 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [maxTemp, setMaxTemp] = useState(0);
   const [minTemp, setMinTemp] = useState(0);
+  const [feelsLikeTemp, setFeelsLikeTemp] = useState(0);
   const [num, setNum] = useState(0);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
@@ -141,6 +275,10 @@ function App() {
   const convertToF_Min = (celsius) => {
     let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
     setMinTemp(fahrenheit);
+  };
+  const convertToF_Feel = (celsius) => {
+    let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
+    setFeelsLikeTemp(fahrenheit);
   };
 
   const weatherIcon = [
@@ -166,6 +304,7 @@ function App() {
           convertToF(response.data.main.temp);
           convertToF_Max(response.data.main.temp_max);
           convertToF_Min(response.data.main.temp_min);
+          convertToF_Feel(response.data.main.feels_like);
           setNum(weatherIconHandle(response.data.weather[0].main));
         });
       } catch (err) {
@@ -181,6 +320,7 @@ function App() {
         convertToF(response.data.main.temp);
         convertToF_Max(response.data.main.temp_max);
         convertToF_Min(response.data.main.temp_min);
+        convertToF_Feel(response.data.main.feels_like);
         setNum(weatherIconHandle(response.data.weather[0].main));
       });
     } catch (err) {
@@ -195,7 +335,7 @@ function App() {
     const utcTime = moment().utc();
     const targetTime = utcTime.add(targetTimezone, "seconds");
 
-    return targetTime.format("M.D(ddd) HH:mm");
+    return targetTime.format("YY.M.D(ddd) HH:mm");
   };
 
   return (
@@ -231,8 +371,6 @@ function App() {
                         src={process.env.PUBLIC_URL + "/image/Location.png"}
                         alt="location"
                         title="location"
-                        height={20}
-                        width={20}
                       />
                       <div id="countryName">{`${result.data.name}, ${result.data.sys.country}`}</div>
                     </div>
@@ -242,11 +380,10 @@ function App() {
                   </div>
                 </div>
                 <img
+                  id="weatherImage"
                   src={
                     process.env.PUBLIC_URL + `/image/${weatherIcon[num]}.png`
                   }
-                  width={200}
-                  height={200}
                   alt={`${result.data.weather[0].main}`}
                   title={`${result.data.weather[0].main}`}
                 />
@@ -254,24 +391,27 @@ function App() {
                   <div className="temperatureData">
                     {`${temp}˚`}
                     <div id="tempMaxMin">
-                      <div>{`최고:${maxTemp}º`}</div>
-                      <div>{`최저:${minTemp}º`}</div>
+                      <div>{`최고:${maxTemp}˚`}</div>
+                      <div>{`최저:${minTemp}˚`}</div>
+                      <div>{`체감:${feelsLikeTemp}˚`}</div>
                     </div>
-                    <div className="windDegSpeed">
-                      <img
-                        src={process.env.PUBLIC_URL + `/image/Wind.png`}
-                        title="wind"
-                        alt="wind"
-                      />
-                      <div>{`풍속: ${result.data.wind.speed}m/s`}</div>
-                    </div>
-                    <div className="humidity">
-                      <img
-                        src={process.env.PUBLIC_URL + `/image/Humidity.png`}
-                        title="humidity"
-                        alt="humidity"
-                      />
-                      <div>{`습도: ${result.data.main.humidity}%`}</div>
+                    <div className="windAndHumidity">
+                      <div className="windDegSpeed">
+                        <img
+                          src={process.env.PUBLIC_URL + `/image/Wind.png`}
+                          title="wind"
+                          alt="wind"
+                        />
+                        <div>{`풍속: ${result.data.wind.speed}m/s`}</div>
+                      </div>
+                      <div className="humidity">
+                        <img
+                          src={process.env.PUBLIC_URL + `/image/Humidity.png`}
+                          title="humidity"
+                          alt="humidity"
+                        />
+                        <div>{`습도: ${result.data.main.humidity}%`}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
