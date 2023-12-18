@@ -257,8 +257,8 @@ function App() {
   const [location, setLocation] = useState("");
   const [result, setResult] = useState({});
   const [temp, setTemp] = useState(0);
-  const [maxTemp, setMaxTemp] = useState(0);
-  const [minTemp, setMinTemp] = useState(0);
+  // const [maxTemp, setMaxTemp] = useState(0);
+  // const [minTemp, setMinTemp] = useState(0);
   const [feelsLikeTemp, setFeelsLikeTemp] = useState(0);
   const [num, setNum] = useState(0);
 
@@ -268,14 +268,14 @@ function App() {
     let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
     setTemp(fahrenheit);
   };
-  const convertToF_Max = (celsius) => {
-    let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
-    setMaxTemp(fahrenheit);
-  };
-  const convertToF_Min = (celsius) => {
-    let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
-    setMinTemp(fahrenheit);
-  };
+  // const convertToF_Max = (celsius) => {
+  //   let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
+  //   setMaxTemp(fahrenheit);
+  // };
+  // const convertToF_Min = (celsius) => {
+  //   let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
+  //   setMinTemp(fahrenheit);
+  // };
   const convertToF_Feel = (celsius) => {
     let fahrenheit = Math.round((celsius - 273.15) * 10) / 10;
     setFeelsLikeTemp(fahrenheit);
@@ -302,8 +302,8 @@ function App() {
           console.log(response.data);
           setResult(response);
           convertToF(response.data.main.temp);
-          convertToF_Max(response.data.main.temp_max);
-          convertToF_Min(response.data.main.temp_min);
+          // convertToF_Max(response.data.main.temp_max);
+          // convertToF_Min(response.data.main.temp_min);
           convertToF_Feel(response.data.main.feels_like);
           setNum(weatherIconHandle(response.data.weather[0].main));
         });
@@ -318,8 +318,8 @@ function App() {
         console.log(response.data);
         setResult(response);
         convertToF(response.data.main.temp);
-        convertToF_Max(response.data.main.temp_max);
-        convertToF_Min(response.data.main.temp_min);
+        // convertToF_Max(response.data.main.temp_max);
+        // convertToF_Min(response.data.main.temp_min);
         convertToF_Feel(response.data.main.feels_like);
         setNum(weatherIconHandle(response.data.weather[0].main));
       });
