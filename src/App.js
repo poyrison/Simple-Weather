@@ -69,10 +69,6 @@ const SearchBtn = styled.button`
       background: #c9c9c9;
     }
 
-    // &:active {
-    //   background: #fff;
-    // }
-
     @media (min-width: 200px) and (max-width: 767px){
       width: 40px;
       height: 40px;
@@ -183,7 +179,7 @@ const WindAndHumidity = styled.div`
   justify-content: space-evenly;
 `;
 
-const WindDegSpeed = styled.div`
+const WindSpeedDeg = styled.div`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -211,41 +207,6 @@ const WindDegSpeed = styled.div`
     font-size: 20px;
 
     img {
-      height: 35px;
-      width: 35px;
-    }
-  }
-`;
-const Humidity = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 400;
-  align-items: center;
-
-  img {
-    margin: 0 0 10px 0;
-    height: 40px;
-    width: 40px;
-  }
-  @media (min-width: 200px) and (max-width: 767px) {
-    margin-top: 20px;
-    font-size: 14px;
-
-    img {
-      margin: 0 0 10px 0;
-      height: 25px;
-      width: 25px;
-    }
-  }
-  @media (min-width: 768px) and (max-width: 1200px) {
-    margin-top: 20px;
-    font-size: 20px;
-
-    img {
-      margin: 0 0 10px 0;
       height: 35px;
       width: 35px;
     }
@@ -394,22 +355,22 @@ function App() {
                       <div>{`체감:${feelsLikeTemp}˚`}</div>
                     </TempMaxMin>
                     <WindAndHumidity>
-                      <WindDegSpeed>
+                      <WindSpeedDeg>
                         <img
                           src={process.env.PUBLIC_URL + `/image/Wind.png`}
                           title="wind"
                           alt="wind"
                         />
                         <div>{`풍속: ${result.data.wind.speed}m/s`}</div>
-                      </WindDegSpeed>
-                      <Humidity>
+                      </WindSpeedDeg>
+                      <WindSpeedDeg>
                         <img
                           src={process.env.PUBLIC_URL + `/image/Humidity.png`}
                           title="humidity"
                           alt="humidity"
                         />
                         <div>{`습도: ${result.data.main.humidity}%`}</div>
-                      </Humidity>
+                      </WindSpeedDeg>
                     </WindAndHumidity>
                   </TemperatureData>
                 </div>
