@@ -8,37 +8,53 @@ const AppWrap = styled.div`
   * {
     box-sizing: border-box;
   }
+`;
+const AppContentWrap = styled.div`
+  background: linear-gradient(180deg, #130754 0%, #3b2f80 100%);
+  box-shadow: 7px 7px 5px #898aa6;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  padding: 5vh 5vw;
+  border-radius: 25px;
 
-  .appContentWrap {
-    background: linear-gradient(180deg, #130754 0%, #3b2f80 100%);
-    box-shadow: 7px 7px 5px #898aa6;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    padding: 5vh 5vw;
-    border-radius: 25px;
+  @media (min-width: 200px) and (max-width: 1200px) {
+    width: 80vw;
+  }
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  @media (min-width: 200px) and (max-width: 1200px) {
+    gap: 10px;
+  }
+`;
+const SearchInput = styled.input`
+  display: flex;
+  font-size: 20px;
+  font-weight: 400;
+  height: 50px;
+  color: #626262;
+  outline: none;
+  border: none;
+  border-radius: 40px;
+  padding-left: 40px;
+
+  @media (min-width: 200px) and (max-width: 767px) {
+    font-size: 14px;
+    height: 40px;
+    padding-left: 20px;
   }
 
-  #inputBox {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
+  @media (min-width: 768px) and (max-width: 1200px) {
+    font-size: 24px;
+    padding-left: 50px;
   }
-
-  #inputBox input {
-    display: flex;
-    font-size: 20px;
-    font-weight: 400;
-    height: 50px;
-    color: #626262;
-    outline: none;
-    border: none;
-    border-radius: 40px;
-    padding-left: 40px;
-  }
-
-  #searchBtn {
+`;
+const SearchBtn = styled.button`
     border: 0;
     background: #eee;
     border-radius: 40px;
@@ -47,204 +63,188 @@ const AppWrap = styled.div`
     align-items: center;
     width: 50px;
     height: 50px;
-  }
 
-  #searchBtn:hover {
-    cursor: pointer;
-  }
+    &:hover {
+      cursor: pointer;
+      background: #c9c9c9;
+    }
 
-  #searchBtn:active {
-    background: #fff;
-  }
-  @media (min-width: 200px) and (max-width: 767px) {
-    .appContentWrap {
-      width: 80vw;
-    }
-    #inputBox {
-      gap: 10px;
-    }
-    #inputBox input {
-      font-size: 14px;
-      font-weight: 400;
-      height: 40px;
-      padding-left: 20px;
-    }
-    #searchBtn {
+    // &:active {
+    //   background: #fff;
+    // }
+
+    @media (min-width: 200px) and (max-width: 767px){
       width: 40px;
       height: 40px;
     }
-  }
-  @media (min-width: 768px) and (max-width: 1200px) {
-    .appContentWrap {
-      width: 80vw;
-    }
-    #inputBox {
-      gap: 10px;
-    }
-    #inputBox input {
-      font-size: 24px;
-      font-weight: 400;
-      height: 50px;
-      padding-left: 50px;
-    }
-    #searchBtn {
-      width: 50px;
-      height: 50px;
-    }
-  }
-`;
+
+  }`;
 
 const ResultWrap = styled.div`
   text-align: center;
   margin-top: 20px;
   padding: 10px;
   color: #eee;
+`;
+const CityData = styled.div`
+  text-align: center;
+  font-size: 2rem;
 
-  .cityData {
-    text-align: center;
-    font-size: 2rem;
+  @media (min-width: 200px) and (max-width: 767px) {
+    font-size: 30px;
   }
-
-  .cityDataTitleBox {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 5px;
+  @media (min-width: 768px) and (max-width: 1200px) {
+    font-size: 40px;
   }
+`;
 
-  .cityDataTitleBox img {
+const CityDataTitleBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+
+  img {
     height: 20px;
     width: 20px;
   }
+  @media (min-width: 200px) and (max-width: 767px) {
+    gap: 3px;
 
-  #countryTimezone {
-    font-size: 18px;
+    img {
+      height: 22px;
+      width: 22px;
+    }
   }
-
-  .temperatureData {
-    text-align: center;
-    font-size: 4rem;
+  @media (min-width: 768px) and (max-width: 1200px) {
+    img {
+      height: 28px;
+      width: 28px;
+    }
   }
+`;
 
-  #weatherImage {
-    width: 200px;
-    height: 200px;
+const CountryTimezone = styled.div`
+  font-size: 18px;
+
+  @media (min-width: 200px) and (max-width: 767px) {
+    font-size: 14px;
   }
+`;
 
-  .skyData {
-    text-align: center;
+const TemperatureData = styled.div`
+  text-align: center;
+  font-size: 4rem;
+
+  @media (min-width: 200px) and (max-width: 767px) {
+    font-size: 2rem;
   }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    font-size: 3.5rem;
+  }
+`;
 
-  #tempMaxMin {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-evenly;
+const WeatherImage = styled.img`
+  width: 200px;
+  height: 200px;
+
+  @media (min-width: 200px) and (max-width: 767px) {
+    width: 150px;
+    height: 150px;
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    width: 220px;
+    height: 220px;
+  }
+`;
+
+const SkyData = styled.div`
+  text-align: center;
+`;
+
+const TempMaxMin = styled.div`
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 20px;
+  font-weight: 400;
+
+  @media (min-width: 200px) and (max-width: 767px) {
+    font-size: 14px;
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    margin-top: 20px;
     font-size: 20px;
-    font-weight: 400;
   }
-  .windDegSpeed,
-  .humidity {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: 400;
-    align-items: center;
-  }
-  .windDegSpeed img,
-  .humidity img {
+`;
+
+const WindAndHumidity = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const WindDegSpeed = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 400;
+  align-items: center;
+
+  img {
     margin: 0 0 10px 0;
     height: 40px;
     width: 40px;
   }
-  .windAndHumidity {
-    display: flex;
-    justify-content: space-around;
+  @media (min-width: 200px) and (max-width: 767px) {
+    margin-top: 20px;
+    font-size: 14px;
+
+    img {
+      height: 25px;
+      width: 25px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    margin-top: 20px;
+    font-size: 20px;
+
+    img {
+      height: 35px;
+      width: 35px;
+    }
+  }
+`;
+const Humidity = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 400;
+  align-items: center;
+
+  img {
+    margin: 0 0 10px 0;
+    height: 40px;
+    width: 40px;
   }
   @media (min-width: 200px) and (max-width: 767px) {
-    .cityData {
-      font-size: 30px;
-    }
+    margin-top: 20px;
+    font-size: 14px;
 
-    .cityDataTitleBox {
-      gap: 3px;
-    }
-
-    .cityDataTitleBox img {
-      height: 22px;
-      width: 22px;
-    }
-
-    #countryTimezone {
-      font-size: 14px;
-    }
-
-    #weatherImage {
-      width: 150px;
-      height: 150px;
-    }
-
-    .temperatureData {
-      font-size: 2rem;
-    }
-
-    #tempMaxMin {
-      margin-top: 10px;
-      font-size: 14px;
-      font-weight: 400;
-    }
-    .windDegSpeed,
-    .humidity {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    .windDegSpeed img,
-    .humidity img {
+    img {
       margin: 0 0 10px 0;
       height: 25px;
       width: 25px;
     }
   }
   @media (min-width: 768px) and (max-width: 1200px) {
-    .cityData {
-      font-size: 40px;
-    }
+    margin-top: 20px;
+    font-size: 20px;
 
-    .cityDataTitleBox {
-      gap: 5px;
-    }
-
-    .cityDataTitleBox img {
-      height: 28px;
-      width: 28px;
-    }
-
-    #countryTimezone {
-      font-size: 18px;
-    }
-
-    #weatherImage {
-      width: 220px;
-      height: 220px;
-    }
-
-    .temperatureData {
-      font-size: 3.5rem;
-    }
-
-    #tempMaxMin {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: 400;
-    }
-    .windDegSpeed,
-    .humidity {
-      margin-top: 20px;
-      font-size: 20px;
-    }
-    .windDegSpeed img,
-    .humidity img {
+    img {
       margin: 0 0 10px 0;
       height: 35px;
       width: 35px;
@@ -340,10 +340,9 @@ function App() {
 
   return (
     <AppWrap>
-      <div className="appContentWrap">
-        <div id="inputBox">
-          <input
-            id="searchWeather"
+      <AppContentWrap>
+        <InputBox>
+          <SearchInput
             placeholder="Search"
             value={location}
             onChange={(e) => {
@@ -353,34 +352,33 @@ function App() {
             onKeyDown={searchWeather}
             autoFocus
           />
-          <button id="searchBtn" type="button" onClick={searchWeatherMouse}>
+          <SearchBtn id="searchBtn" type="button" onClick={searchWeatherMouse}>
             <img
               src={process.env.PUBLIC_URL + `/image/Search.png`}
               alt="검색 버튼 이미지"
             />
-          </button>
-        </div>
+          </SearchBtn>
+        </InputBox>
         {Object.keys(result).length !== 0 && (
           <ResultWrap>
             <div>
-              <div className="skyData">
+              <SkyData>
                 <div>
-                  <div className="cityData">
-                    <div className="cityDataTitleBox">
+                  <CityData>
+                    <CityDataTitleBox>
                       <img
                         src={process.env.PUBLIC_URL + "/image/Location.png"}
                         alt="location"
                         title="location"
                       />
-                      <div id="countryName">{`${result.data.name}, ${result.data.sys.country}`}</div>
-                    </div>
-                    <div id="countryTimezone">
+                      <div>{`${result.data.name}, ${result.data.sys.country}`}</div>
+                    </CityDataTitleBox>
+                    <CountryTimezone>
                       {getTimeInTargetTime(result.data.timezone)}
-                    </div>
-                  </div>
+                    </CountryTimezone>
+                  </CityData>
                 </div>
-                <img
-                  id="weatherImage"
+                <WeatherImage
                   src={
                     process.env.PUBLIC_URL + `/image/${weatherIcon[num]}.png`
                   }
@@ -388,38 +386,38 @@ function App() {
                   title={`${result.data.weather[0].main}`}
                 />
                 <div>
-                  <div className="temperatureData">
+                  <TemperatureData>
                     {`${temp}˚`}
-                    <div id="tempMaxMin">
-                      <div>{`최고:${maxTemp}˚`}</div>
-                      <div>{`최저:${minTemp}˚`}</div>
+                    <TempMaxMin>
+                      {/* <div>{`최고:${maxTemp}˚`}</div>
+                      <div>{`최저:${minTemp}˚`}</div> */}
                       <div>{`체감:${feelsLikeTemp}˚`}</div>
-                    </div>
-                    <div className="windAndHumidity">
-                      <div className="windDegSpeed">
+                    </TempMaxMin>
+                    <WindAndHumidity>
+                      <WindDegSpeed>
                         <img
                           src={process.env.PUBLIC_URL + `/image/Wind.png`}
                           title="wind"
                           alt="wind"
                         />
                         <div>{`풍속: ${result.data.wind.speed}m/s`}</div>
-                      </div>
-                      <div className="humidity">
+                      </WindDegSpeed>
+                      <Humidity>
                         <img
                           src={process.env.PUBLIC_URL + `/image/Humidity.png`}
                           title="humidity"
                           alt="humidity"
                         />
                         <div>{`습도: ${result.data.main.humidity}%`}</div>
-                      </div>
-                    </div>
-                  </div>
+                      </Humidity>
+                    </WindAndHumidity>
+                  </TemperatureData>
                 </div>
-              </div>
+              </SkyData>
             </div>
           </ResultWrap>
         )}
-      </div>
+      </AppContentWrap>
     </AppWrap>
   );
 }
