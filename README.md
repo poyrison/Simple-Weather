@@ -18,5 +18,5 @@
 # 주요 기능
 
 - 지역을 검색 후 해당 지역의 온도/체감온도/풍속/습도를 확인하는 기능 구현
-  ex) 서울 지역의 강남구 정보를 검색하고 싶다면 다음과 같이 검색 "gangnam-gu"
+- ex) 서울 지역의 강남구 정보를 검색하고 싶다면 다음과 같이 검색 "gangnam-gu"
   ![typing](public/image/weatherSearch.gif)
